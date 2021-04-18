@@ -10,26 +10,12 @@ import validation
 userDbPath = "C:/Users/marja/Desktop/reskillProject/BankOperation/DATA/userRecord/"
 authPath = "C:/Users/marja/Desktop/reskillProject/BankOperation/Data/authSession/"
 
-def createAuth(accountNumber,firstName,lastName,email,password,newBalance):
+def createAuth(accountNumber, firstName,lastName,email,password,newBalance):
     try:
         f = open(authPath + str(accountNumber) + ".txt" , "x")
-        userAuth = firstName + "," + lastName + ","+ email + "," + password + "," + str(newBalance)
-        
-        completionState = False
-    except FileExistsError:
-        doesFileContainData = read(authPath + str(accountNumber) + ".txt")
-        if not doesFileContainData:
-            delete(accountNumber)
-        # print("user already exist")
-        # delete(accountNumber)
-        # delete the already created file and print out error, then return false
-        # check content of file before deleting
-    else:
-        f.write(str(userData));
-        completionState = True
-    finally:
-        f.close();
-        return completionState
+        # userAuth = firstName + "," + lastName + ","+ email + "," + password + "," + str(newBalance)
+    except:
+        pass
 
 def create(accountNumber, firstName,lastName,email,password):
     # create a file 
@@ -56,7 +42,7 @@ def create(accountNumber, firstName,lastName,email,password):
         # delete the already created file and print out error, then return false
         # check content of file before deleting
     else:
-        f.write(str(userData));
+        f.write(str(userData))
         completionState = True
     finally:
         f.close();
@@ -95,6 +81,8 @@ def update(accountNumber):
         accountBalance = str(newBalance)
         f.write(newBalance)
         f.close()
+    except :
+        pass
 
     # find user with account number
     # fetch the content of the file

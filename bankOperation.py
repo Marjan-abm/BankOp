@@ -26,7 +26,7 @@ def register():
     firstName = input("please enter your first name \n")
     lastName = input("please enter your last name \n")
     password = input("Create a password for yourself \n")
-    # balance = int(input("How much do you want to put in as your first balance? \n"))
+    newBalance = int(input("How much do you want to put in as your first balance? \n"))
 
     accountNumber = generationAccountNumber()
    
@@ -55,7 +55,7 @@ def login():
         # passwordFromUser = input("Please enter your password \n")
         password = getpass("What is your password?\n")
         user = database.authenticatedUser(accountNumberFromUser,password)
-        newAuth = database.createAuth(accountNumber,newBalance)
+        newAuth = database.createAuth(accountNumberFromUser, firstName,lastName,email,password,newBalance)
         if user:
             bankOperation(user)
         # for accountNumber,userDetails in database.items():
@@ -93,9 +93,9 @@ def withdrawOperation():
     # check if current balance > withdraw balance
     # deduct withdraw amount from current balance
     # display current balance
-    withdrawAmount = int(input(f"Your balance is { user[4] } , How much do you want to withdraw? \n"))
-    if user[4] > withdrawAmount:
-        newBalance = user[4] - withdrawAmount
+    withdrawAmount = int(input(f"Your balance is { userAuth[4] } , How much do you want to withdraw? \n"))
+    if userAuth[4] > withdrawAmount:
+        newBalance = userAuth[4] - withdrawAmount
         update(accountNumber)
     else:
         print("Sorry, you don't have enough money.")
@@ -108,16 +108,16 @@ def depositOperation():
     # get amount to deposit
     # add deposited amount to current balance
     # display current balance
-    depositAmount = int(input(f"Your balance is {user[4]} How much would you like to deposit? \n"))
-    newBalance = user[4] + depositAmount
+    depositAmount = int(input(f"Your balance is {userAuth[4]} How much would you like to deposit? \n"))
+    newBalance = userAuth[4] + depositAmount
     print(f"Your new balance is {newBalance}")
     update(newBalance)
 
 def setCurrentBalance(user):
-    return user[4]
+    return userAuth[4]
 #for logging out of the function
 def logout():
-    login()
+    delete(accountNumber)
 def exit():
     print("Thank you!")
 
